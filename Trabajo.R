@@ -22,11 +22,17 @@ boxplot(Colesterol ~ Tratamiento, data = datos, main = "Colesterol") #boxplot de
 
 # 4. Realiza un violin plot (investiga qué es). (1 pt)
 #un violin plot es similar a los boxplots pero muestran densidad
-par(mfrow = c(1,3)) # tres gráficos en fila
-boxplot(Glucosa ~ Tratamiento, data = datos, main = "Violin Glucosa", col = "lightblue")
-boxplot(Presion ~ Tratamiento, data = datos, main = "Violin Presión", col = "lightgreen")
-boxplot(Colesterol ~ Tratamiento, data = datos, main = "Violin Colesterol", col = "lightcoral")
-par(mfrow = c(1, 1))
+# primero instalo y cargo el paquete vioplot 
+if(!require(vioplot)) {
+  install.packages("vioplot")
+  library(vioplot)
+}
+  
+library(vioplot)
+
+vioplot(Glucosa ~ Tratamiento, data = datos, main = "Violin Plot - Glucosa", col = "lightblue")
+vioplot(Presion ~ Tratamiento, data = datos, main = "Violin Plot - Presión", col = "lightgreen") 
+vioplot(Colesterol ~ Tratamiento, data = datos, main = "Violin Plot - Colesterol", col = "lightcoral")
 
 # 5. Realiza un gráfico de dispersión "Glucosa vs Presión". Emplea legend() para incluir una leyenda en la parte inferior derecha. (1 pt)
 colores <- character(nrow(datos))
@@ -66,7 +72,6 @@ hist(datos$Colesterol, main = "Distribución Colesterol", xlab = "Colesterol", c
 
 # 8. Crea un factor a partir del tratamiento. Investifa factor(). (1 pt)
 #esto lo hago para poder hacer un test estadístico
-print("=== PASO 8 - CONVERTIR A FACTOR ===")
 datos$Tratamiento <- as.factor(datos$Tratamiento)
 print("Niveles del factor Tratamiento:")
 print(levels(datos$Tratamiento))
